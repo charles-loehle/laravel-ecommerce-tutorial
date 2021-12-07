@@ -58,6 +58,7 @@
                         View
                       </a>
                       <a 
+                        href="{{ route('add.cart', [$product->id]) }}"
                         class="addToCart btn btn-sm btn-outline-secondary" 
                         id="{{ $product->id }}"
                       >
@@ -107,6 +108,7 @@
                             View
                           </a>
                           <a 
+                            href="{{ route('add.cart', [$product->id]) }}"
                             class="addToCart btn btn-sm btn-outline-secondary" 
                             id="{{ $product->id }}"
                           >
@@ -145,6 +147,7 @@
                             View
                           </a>
                           <a 
+                            href="{{ route('add.cart', [$product->id]) }}"
                             class="addToCart btn btn-sm btn-outline-secondary" 
                             id="{{ $product->id }}"
                           >

@@ -19,6 +19,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    @notifyCss
+    <div class="notify-message">
+        <x:notify-messages />
+    </div>
+    @notifyJs
+
 
 </head>
 <body>
@@ -42,7 +48,9 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         <a href="" class="nav-link">
-                            <span class="fas fa-shopping-cart">0</span>
+                            <span class="fas fa-shopping-cart">
+                                ({{ session()->has('cart') ? session()->get('cart')->totalQty: '0' }})
+                            </span>
                         </a>
 
                         @guest

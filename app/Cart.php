@@ -37,5 +37,7 @@ class Cart {
       $this->totalQty += 1;
       $this->totalPrice += $product->price;
     }
+
+    $this->items[$product->id]['qty'] += 1;
   }
 }
