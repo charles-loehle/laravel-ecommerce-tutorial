@@ -47,7 +47,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
-                        <a href="" class="nav-link">
+                        <a href="{{ route('cart.show') }}" class="nav-link">
                             <span class="fas fa-shopping-cart">
                                 ({{ session()->has('cart') ? session()->get('cart')->totalQty: '0' }})
                             </span>

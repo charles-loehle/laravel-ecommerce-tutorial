@@ -40,4 +40,22 @@ class Cart {
 
     $this->items[$product->id]['qty'] += 1;
   }
+
+  public function updateQty($id, $qty) {
+    $this->totalQty -= $this->items[$id]['qty'];
+    $this->totalPrice -= $this->items[$id]['price'] * $this->items[$id]['qty'];
+    // add the item with new qty 
+    $this->totalQty += $qty;
+    $this->totalPrice += $this->items[$id]['price'] * $qty;
+    $this->items[$id]['qty'] = $qty;
+  }
+
+  public function remove($id) {
+    if(array_key_exists($id, $this->items)) {
+      $this->totalQty -= $this->items[$id]['qty'];
+      $this->totalPrice -= $this->items[$id]['qty'] * $this->items[$id]['price'];
+
+      unset($this->items[$id]);
+    }
+  }
 }

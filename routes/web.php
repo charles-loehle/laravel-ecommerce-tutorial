@@ -17,12 +17,21 @@ Route::get('/product/{id}', [FrontProductListController::class, 'show'])
   ->name('product.view');
 Route::get('all/products', [FrontProductListController::class, 'moreProducts'])
   ->name('more.products');
-
 Route::get('/category/{name}', [FrontProductListController::class, 'allProducts'])
   ->name('product.list');
 
+Route::get('/checkout/{amount}', [CartController::class, 'checkout'])
+  ->name('cart.checkout')->middleware('auth');
+Route::post('/charge', [CartController::class, 'charge'])
+  ->name('cart.charge');
 Route::get('/addToCart/{product}', [CartController::class, 'addToCart'])
   ->name('add.cart');
+Route::get('/cart', [CartController::class, 'showCart'])
+  ->name('cart.show');
+Route::post('/products/{product}', [CartController::class, 'updateCart'])
+  ->name('cart.update');
+Route::post('/product/{product}', [CartController::class, 'removeCart'])
+  ->name('cart.remove');
 
 Auth::routes();
 
