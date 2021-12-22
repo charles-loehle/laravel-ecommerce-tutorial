@@ -176,7 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // Cartalyst Stripe 
-        Cartalyst\Stripe\Laravel\StripeServiceProvider::class
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
     ],
 
     /*

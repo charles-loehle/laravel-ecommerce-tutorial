@@ -32,85 +32,119 @@
 </style>
 
   <div class="container">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">Checkout</div>
-        <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Image</th>
+              <th scope="col">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">Qty</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if ($cart)
+              @php
+                $i = 1;
+              @endphp
 
-          <form action="/charge" method="post" id="payment-form">
-            @csrf
-            <div class="form-group">
-              <label>Name</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                class="form-control"
-                required=""
-              />
-            </div>
-            <div class="form-group">
-              <label>Adress</label>
-              <input
-                type="text"
-                name="address"
-                id="address"
-                class="form-control"
-                required=""
-              />
-            </div>
-            <div class="form-group">
-              <label>City</label>
-              <input
-                type="text"
-                name="city"
-                id="city"
-                class="form-control"
-                required=""
-              />
-            </div>
-            <div class="form-group">
-              <label>State</label>
-              <input
-                type="text"
-                name="state"
-                id="state"
-                class="form-control"
-                required=""
-              />
-            </div>
-            <div class="form-group">
-              <label>Postal code</label>
-              <input
-                type="text"
-                name="postalcode"
-                id="postalcode"
-                class="form-control"
-                required=""
-              />
-            </div>
-            <input type="hidden" name="amount" value="{{$amount}}" />
-            {{-- <button class="btn btn-primary mt-3">Submit Payment</button> --}}
+              @foreach ($cart->items as $product)
+                <tr>
+                  <th scope="row">{{ $i++ }}</th>
+                  <td>
+                    <img src="{{ Storage::url($product['image']) }}">
+                  </td>
+                  <td>{{ $product['name'] }}</td>
+                  <td>{{ $product['price'] }}</td>
+                  <td>{{ $product['qty'] }}</td>
+                </tr>  
+              @endforeach
+            @endif
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">Checkout</div>
+          <div class="card-body">
 
-            <div class="">
-              <label for="card-element">
-                Credit or debit card
-              </label>
-              <div id="card-element"></div>
-              <div id="card-errors" role="alert"></div>
-            </div>
-            <button class="btn btn-primary mt-4" type="submit">Submit Payment</button>
-          </form>
+            <form action="/charge" method="post" id="payment-form">
+              @csrf
+              <div class="form-group">
+                <label>Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  class="form-control"
+                  required=""
+                />
+              </div>
+              <div class="form-group">
+                <label>Adress</label>
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  class="form-control"
+                  required=""
+                />
+              </div>
+              <div class="form-group">
+                <label>City</label>
+                <input
+                  type="text"
+                  name="city"
+                  id="city"
+                  class="form-control"
+                  required=""
+                />
+              </div>
+              <div class="form-group">
+                <label>State</label>
+                <input
+                  type="text"
+                  name="state"
+                  id="state"
+                  class="form-control"
+                  required=""
+                />
+              </div>
+              <div class="form-group">
+                <label>Postal code</label>
+                <input
+                  type="text"
+                  name="postalcode"
+                  id="postalcode"
+                  class="form-control"
+                  required=""
+                />
+              </div>
+              <input type="hidden" name="amount" value="{{$amount}}" />
+              {{-- <button class="btn btn-primary mt-3">Submit Payment</button> --}}
 
-        </div><!-- .card-body -->
-      </div><!-- .card -->
-    </div><!-- .col-md-8 -->
+              <div class="">
+                <label for="card-element">
+                  Credit or debit card
+                </label>
+                <div id="card-element"></div>
+                <div id="card-errors" role="alert"></div>
+              </div>
+              <button class="btn btn-primary mt-4" type="submit">Submit Payment</button>
+            </form>
+
+          </div><!-- .card-body -->
+        </div><!-- .card -->
+      </div><!-- .col-md-8 -->
+    </div><!-- .row -->
   </div><!-- .container -->
   <script src="https://js.stripe.com/v3/"></script>
   <script>
     // Create a Stripe client.
   window.onload = function () {
-    console.log('{{ env('MIX_STRIPE_SECRET_KEY') }}');
+    // console.log('{{ env('MIX_STRIPE_SECRET_KEY') }}');
     var stripe = Stripe('pk_test_51K4rvrJIjAtRcfJA5ZrxSMrHn9rYfuD1HS5zbwQELhL7xJBErXBmDV1E0i1yOHbxYotKroVgQzMzYBlZMVmEhwVK00w3dPGtI6');
 
     // Create an instance of Elements.
