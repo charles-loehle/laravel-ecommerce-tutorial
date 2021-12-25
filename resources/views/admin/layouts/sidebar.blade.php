@@ -1,7 +1,8 @@
 <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/auth/dashboard') }}">
     <div class="sidebar-brand-icon">
-      <img src="{{ asset('admin/img/logo/logo2.png') }}">
+      Laravel
+      {{-- <img src="{{ asset('admin/img/logo/logo2.png') }}"> --}}
     </div>
     <div class="sidebar-brand-text mx-3">Ecommerce</div>
   </a>
@@ -71,8 +72,8 @@
     <div id="collapseBootstrap3" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Slider</h6>
-        {{-- <a class="collapse-item" href="{{ route('slider.index') }}">View</a>
-        <a class="collapse-item" href="{{ route('slider.create') }}">Create</a> --}}
+        <a class="collapse-item" href="{{ route('slider.index') }}">View</a>
+        <a class="collapse-item" href="{{ route('slider.create') }}">Create</a>
       </div>
     </div>
   </li>
@@ -86,7 +87,7 @@
     <div id="collapseBootstrap4" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Users</h6>
-        {{-- <a class="collapse-item" href="{{ route('user.index') }}">View all users</a> --}}
+        <a class="collapse-item" href="{{ route('user.index') }}">View all users</a>
       </div>
     </div>
   </li>
@@ -100,7 +101,7 @@
     <div id="collapseBootstrap5" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Order</h6>
-        {{-- <a class="collapse-item" href="{{ route('order.index') }}">View</a> --}}
+        <a class="collapse-item" href="{{ route('order.index') }}">View</a>
       </div>
     </div>
   </li>

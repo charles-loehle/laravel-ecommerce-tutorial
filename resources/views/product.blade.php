@@ -4,68 +4,63 @@
 <div class="container">
   <main role="main">
 
-    <section class="jumbotron text-center">
-      <div class="container">
-        <h1>Product Categories</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        <p>
-          @foreach (App\Models\Category::all() as $category)
-            <a 
-              href="{{ route('product.list', [$category->slug]) }}" 
-              class="btn btn-secondary"
-            >
-              {{ $category->name }}
-            </a>
-          @endforeach
-        </p>
-      </div>
-    </section>
+    <div class="container">
+      <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          @if(count($sliders)>0)
+            @foreach($sliders as $key=> $slider)
+              <div class="carousel-item {{$key == 0 ? 'active' : ''}} ">
+                <img src="{{Storage::url($slider->image)}}" >
+              </div>
+            @endforeach
+          @endif
+        </div>
 
-    <h2>Categories</h2>
-    @foreach (App\Models\Category::all() as $category)
-      <a 
-        href="{{ route('product.list', [$category->slug]) }}" 
-        class="btn btn-secondary"
-      >
-        {{ $category->name }}
+        <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+
+    <h2>Category</h2>
+    @foreach(App\Models\Category::all() as $cat)
+      <a href="{{route('product.list',[$cat->slug])}}">
+        <button class="btn btn-secondary">
+          {{$cat->name}}
+        </button>
       </a>
     @endforeach
-  
+
     <div class="album py-5 bg-light">
       <div class="container">
         <h2>Products</h2>
-
         <div class="row">
-
-          @foreach ($products as $product)
-              
+          @foreach($products as $product)
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-                <img src="{{ Storage::url($product->image) }}">
-    
+                <img src="{{Storage::url($product->image)}}" height="200" style="width: 100%">
                 <div class="card-body">
-                  <h5 class="card-title">
-                    {{ $product->name }}
-                  </h5>
+                    <p><b>{{$product->name}}</b></p>
                   <p class="card-text">
-                    {{ Str::limit($product->description, 120) }}
+                      {{(Str::limit($product->description,120))}}
                   </p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a 
-                        href="{{ route('product.view', [$product->id]) }}"  class="btn btn-sm btn-outline-secondary"
-                      >
-                        View
-                      </a>
-                      <a 
-                        href="{{ route('add.cart', [$product->id]) }}"
-                        class="addToCart btn btn-sm btn-outline-secondary" 
-                        id="{{ $product->id }}"
-                      >
-                        Add to cart
-                      </a>
+                    <a href="{{route('product.view',[$product->id])}}"> <button type="button" class="btn btn-sm btn-outline-success">View</button>
+                    </a>
+                    
+                    <a class="addToCart" id="{{$product->id}}">
+                      <button type="button" class="btn btn-sm btn-outline-primary">{{$product->id}}sAdd to cart
+                      </button>
+                    </a>
+                    
                     </div>
-                    <small class="text-muted">${{ $product->price }}</small>
+                    <small class="text-muted">${{$product->price}}</small>
                   </div>
                 </div>
               </div>
@@ -74,95 +69,71 @@
         </div>
       </div>
       <center>
-        <a href="{{ route('more.products') }}" class="btn btn-success">
-          More Products
+        <a href="{{route('more.products')}}"><button class="btn btn-success">More Product</button>
         </a>
-      </center>
+      </center>   
     </div>
-  
-    <h1>Carousel</h1>
 
     <div class="jumbotron">
-      <div id="carouselExampleFade" class="carousel slide" data-ride="carousel">
+      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-
           <div class="carousel-item active">
             <div class="row">
-              @foreach ($randomActiveProducts as $product)
-                <div class="col-4">
-                  <div class="card mb-4 shadow-sm">
-                    <img src="{{ Storage::url($product->image) }}">
-        
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        {{ $product->name }}
-                      </h5>
-                      <p class="card-text">
-                        {{ Str::limit($product->description, 120) }}
-                      </p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <a 
-                            href="{{ route('product.view', [$product->id]) }}"  class="btn btn-sm btn-outline-secondary"
-                          >
-                            View
+              @foreach($randomActiveProducts as $product)
+              <div class="col-4">
+                <div class="card mb-4 shadow-sm">
+                  <img src="{{Storage::url($product->image)}}" height="200" style="width: 100%">
+                  <div class="card-body">
+                      <p><b>{{$product->name}}</b></p>
+                    <p class="card-text">
+                        {{(Str::limit($product->description,120))}}
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-success">View</button>
+                        <a href="">
+                          <a href="{{route('add.cart',[$product->id])}}">
+                            <button type="button" class="btn btn-sm btn-outline-primary">Add to cart</button>
                           </a>
-                          <a 
-                            href="{{ route('add.cart', [$product->id]) }}"
-                            class="addToCart btn btn-sm btn-outline-secondary" 
-                            id="{{ $product->id }}"
-                          >
-                            Add to cart
-                          </a>
-                        </div>
-                        <small class="text-muted">${{ $product->price }}</small>
+                        </a>
                       </div>
+                      <small class="text-muted">${{$product->price}}</small>
                     </div>
                   </div>
                 </div>
+              </div>
               @endforeach
-
+              
             </div>
           </div>
-
-          <div class="carousel-item">
+          <div class="carousel-item ">
             <div class="row">
-              @foreach ($randomItemProducts as $product)
-                <div class="col-4">
-                  <div class="card mb-4 shadow-sm">
-                    <img src="{{ Storage::url($product->image) }}">
-        
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        {{ $product->name }}
-                      </h5>
-                      <p class="card-text">
-                        {{ Str::limit($product->description, 120) }}
-                      </p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <a 
-                            href="{{ route('product.view', [$product->id]) }}"  class="btn btn-sm btn-outline-secondary"
-                          >
-                            View
-                          </a>
-                          <a 
-                            href="{{ route('add.cart', [$product->id]) }}"
-                            class="addToCart btn btn-sm btn-outline-secondary" 
-                            id="{{ $product->id }}"
-                          >
-                            Add to cart
-                          </a>
-                        </div>
-                        <small class="text-muted">${{ $product->price }}</small>
+              @foreach($randomItemProducts as $product)
+
+              <div class="col-4">
+                <div class="card mb-4 shadow-sm">
+                  <img src="{{Storage::url($product->image)}}" height="200" style="width: 100%">
+                  <div class="card-body">
+                      <p><b>{{$product->name}}</b></p>
+                    <p class="card-text">
+                        {{(Str::limit($product->description,120))}}
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                      <a href="{{route('product.view',[$product->id])}}">  <button type="button" class="btn btn-sm btn-outline-success">View</button></a>
+                      <a href="{{route('add.cart',[$product->id])}}"> 
+                      <button type="button" class="btn btn-sm btn-outline-primary">Add to cart</button></a>
                       </div>
+                      <small class="text-muted">${{$product->price}}</small>
                     </div>
                   </div>
                 </div>
+              </div>
               @endforeach
-
+            
             </div>
           </div>
+              
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -173,7 +144,7 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
-    </div> 
+    </div>
 
   </main>
 
@@ -183,8 +154,33 @@
         <a href="#">Back to top</a>
       </p>
       <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-      <p>New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/4.6/getting-started/introduction/">getting started guide</a>.</p>
+      <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="/docs/4.4/getting-started/introduction/">getting started guide</a>.</p>
     </div>
   </footer>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+$("document").ready(function(){
+  $(".addToCart").click(function(e){
+    e.preventDefault();
+    var product = $(this).attr('id');
+    // alert(product)
+    $.ajax({
+      //  headers: {
+      //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      // },
+      type: "GET",
+      url: "http://localhost:8000/addToCart/"+product,
+      // data: { product: product },
+      success: function (data) {
+
+      },
+      error: function (data) {
+        console.log(data)
+      }
+    });
+  })
+});
+</script>
 @endsection

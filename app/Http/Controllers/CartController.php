@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Models\User;
+use App\Models\Order;
+use App\Mail\Sendmail;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Mail\Sendmail;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 
 class CartController extends Controller
@@ -129,6 +131,7 @@ class CartController extends Controller
      *
      *
      */
+    // for logged in user
     public function order()
     {
         $orders = auth()->user()->orders;
@@ -140,5 +143,24 @@ class CartController extends Controller
         //return $carts;
 
         return view("order", compact("carts"));
+    }
+
+    // for admin
+    public function userOrder()
+    {
+        $orders = Order::latest()->get();
+
+        return view("admin.order.index", compact("orders"));
+    }
+
+    public function viewUserOrder($userId, $orderId)
+    {
+        $user = User::find($userId);
+        $orders = $user->orders->where("id", $orderId);
+        $carts = $orders->transform(function ($cart, $key) {
+            return unserialize($cart->cart);
+        });
+
+        return view("admin.order.show", compact("carts"));
     }
 }

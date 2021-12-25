@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
@@ -66,5 +68,38 @@ Route::group(
         Route::resource("category", CategoryController::class);
         Route::resource("subcategory", SubcategoryController::class);
         Route::resource("product", ProductController::class);
+
+        // Slider
+        Route::get("slider", [SliderController::class, "index"])->name(
+            "slider.index"
+        );
+        Route::get("slider/create", [SliderController::class, "create"])->name(
+            "slider.create"
+        );
+        Route::post("slider", [SliderController::class, "store"])->name(
+            "slider.store"
+        );
+        Route::delete("slider/{id}", [
+            SliderController::class,
+            "destroy",
+        ])->name("slider.destroy");
+
+        // users
+        Route::get("users", [UserController::class, "index"])->name(
+            "user.index"
+        );
+
+        // orders
+        Route::get("/orders", [CartController::class, "userOrder"])->name(
+            "order.index"
+        );
+        // Route::get("/orders{userid}/{orderid}", [
+        //     CartController::class,
+        //     "viewUserOrder",
+        // ])->name("user.order");
+        Route::get("/orders/{userid}/{orderid}", [
+            CartController::class,
+            "viewUserOrder",
+        ])->name("user.order");
     }
 );

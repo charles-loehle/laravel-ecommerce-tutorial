@@ -80,10 +80,11 @@
                   id="name"
                   class="form-control"
                   required=""
+                  value="{{ auth()->user()->name }}"
                 />
               </div>
               <div class="form-group">
-                <label>Adress</label>
+                <label>Address</label>
                 <input
                   type="text"
                   name="address"

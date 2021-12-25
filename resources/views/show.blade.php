@@ -30,14 +30,14 @@
             </span>
           </p>
 
-          <h3>Description</h3>
+          <h3 class="h3">Description</h3>
           <p>{!! $product->description !!}</p>
-          <h3>Additional Information</h3>
+          <h3 class="h3">Additional Information</h3>
           <p>{!! $product->additional_info !!}</p>
 
           <hr>
 
-          <a href="" class="btn btn-lg btn-outline-primary text-uppercase">
+          <a href="{{ route('add.cart', [$product->id]) }}" class="btn btn-lg btn-outline-primary text-uppercase">
             Add to cart
           </a>
           
@@ -66,9 +66,9 @@
                   <a href="{{ route('product.view', [$product->id]) }}" class="btn btn-sm btn-outline-success">
                     View
                   </a>
-                  {{-- <a href="{{ route('add.cart', [$product->id]) }}" class="btn btn-sm btn-outline-primary">
+                  <a href="{{ route('add.cart', [$product->id]) }}" class="btn btn-sm btn-outline-primary">
                     Add to cart
-                  </a> --}}
+                  </a>
                 </div>
                 <small class="text-muted">
                   ${{ $product->price }}
